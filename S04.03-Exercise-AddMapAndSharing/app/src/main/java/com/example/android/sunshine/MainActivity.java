@@ -221,8 +221,24 @@ public class MainActivity extends AppCompatActivity implements ForecastAdapterOn
             return true;
         }
 
-        // TODO (2) Launch the map when the map menu item is clicked
+        // (2) Launch the map when the map menu item is clicked
+        if (id == R.id.action_open_map) {
+            openLocationMap();
+            return true;
+        }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    private void openLocationMap() {
+        String addressString = "Ribadumia, Spain";
+        Uri geoLocation = new Uri.Builder().scheme("geo").encodedPath("0,0")
+                .appendQueryParameter("q", addressString).build();
+
+        Intent intent = new Intent(Intent.ACTION_VIEW, geoLocation);
+
+        if (intent.resolveActivity(getPackageManager()) != null) {
+            startActivity(intent);
+        }
     }
 }
